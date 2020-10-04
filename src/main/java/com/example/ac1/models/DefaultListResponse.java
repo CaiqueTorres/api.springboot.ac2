@@ -3,6 +3,7 @@ package com.example.ac1.models;
 import java.util.List;
 
 public class DefaultListResponse<TValue> {
+
     public int length;
     public List<TValue> list;
 
@@ -10,4 +11,5 @@ public class DefaultListResponse<TValue> {
         this.length = length;
         this.list = list;
     }
+
 }
