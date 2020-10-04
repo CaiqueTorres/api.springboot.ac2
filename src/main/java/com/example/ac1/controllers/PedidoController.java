@@ -1,5 +1,6 @@
 package com.example.ac1.controllers;
 
+import com.example.ac1.models.IdConflict;
 import com.example.ac1.models.Pedido;
 import com.example.ac1.services.PedidoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,7 +17,7 @@ public class PedidoController {
     private PedidoService pedidoService;
 
     @PostMapping("/cadastrar")
-    public void cadastrarPedido (@RequestBody Pedido pedido) {
+    public void cadastrarPedido (@RequestBody Pedido pedido) throws IdConflict {
         pedidoService.cadastrarPedido(pedido);
     }
 
