@@ -1,4 +1,4 @@
-package com.app.models;
+package com.app.school.models;
 
 public class School {
     private int id;

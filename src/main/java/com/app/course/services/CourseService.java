@@ -1,4 +1,4 @@
-package com.app.services;
+package com.app.course.services;
 
 public class CourseService {
 

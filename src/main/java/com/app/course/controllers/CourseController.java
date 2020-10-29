@@ -1,9 +1,8 @@
-package com.app.controllers;
+package com.app.course.controllers;
 
-import com.app.models.ArrayProxy;
-import com.app.models.Course;
-import com.app.models.School;
-import com.app.services.SchoolService;
+import com.app.common.ArrayProxy;
+import com.app.course.models.CourseEntity;
+import com.app.course.services.CourseService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,45 +17,39 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping(value = "schools")
-public class SchoolController {
+@RequestMapping(value = "courses")
+public class CourseController {
 
     @Autowired
-    private SchoolService schoolService;
+    private CourseService courseService;
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public School createSchool(@RequestBody School school) {
+    public CourseEntity createCourse(@RequestBody CourseEntity course) {
         return null;
     }
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public ArrayProxy<School> getSchools() {
+    public ArrayProxy<CourseEntity> getCourses() {
         return null;
     }
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public School getSchool(@PathVariable int id) {
-        return null;
-    }
-
-    @GetMapping("/{id}/courses")
-    @ResponseStatus(HttpStatus.OK)
-    public ArrayProxy<Course> getCourses(@PathVariable int id) {
+    public CourseEntity getCourse(@PathVariable int id) {
         return null;
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public void deleteSchool(@PathVariable int id) {
+    public void deleteCourse(@PathVariable int id) {
 
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public void updateSchool(@PathVariable int id) {
+    public void updateCourse(@PathVariable int id) {
 
     }
 
