@@ -1,6 +1,7 @@
 package com.app.controllers;
 
 import com.app.models.ArrayProxy;
+import com.app.models.Course;
 import com.app.models.School;
 import com.app.services.SchoolService;
 
@@ -38,6 +39,12 @@ public class SchoolController {
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
     public School getSchool(@PathVariable int id) {
+        return null;
+    }
+
+    @GetMapping("/{id}/courses")
+    @ResponseStatus(HttpStatus.OK)
+    public ArrayProxy<Course> getCourses(@PathVariable int id) {
         return null;
     }
 
