@@ -1,18 +1,13 @@
 package com.app.course.models;
 
+import com.app.common.BaseEntity;
 import com.app.common.ToProxy;
 
-public class CourseEntity implements ToProxy<CourseProxy> {
-    private int id;
+public class CourseEntity extends BaseEntity implements ToProxy<CourseProxy> {
     private String name;
 
-    public CourseEntity(int id, String name) {
-        this.id = id;
+    public CourseEntity(String name) {
         this.name = name;
-    }
-
-    public int getId() {
-        return id;
     }
 
     @Override

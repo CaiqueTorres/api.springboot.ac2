@@ -2,7 +2,7 @@ package com.app.school.controllers;
 
 import com.app.common.ArrayProxy;
 import com.app.course.models.CourseEntity;
-import com.app.school.models.School;
+import com.app.school.models.SchoolEntity;
 import com.app.school.services.SchoolService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,19 +26,19 @@ public class SchoolController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public School createSchool(@RequestBody School school) {
+    public SchoolEntity createSchool(@RequestBody SchoolEntity school) {
         return null;
     }
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public ArrayProxy<School> getSchools() {
+    public ArrayProxy<SchoolEntity> getSchools() {
         return null;
     }
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public School getSchool(@PathVariable int id) {
+    public SchoolEntity getSchool(@PathVariable int id) {
         return null;
     }
 
