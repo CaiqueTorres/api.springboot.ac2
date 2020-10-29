@@ -1,11 +1,13 @@
 package com.app.course.controllers;
 
 import com.app.common.ArrayProxy;
-import com.app.course.models.CourseEntity;
+import com.app.course.models.CoursePayload;
+import com.app.course.models.CourseProxy;
 import com.app.course.services.CourseService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -25,32 +27,32 @@ public class CourseController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public CourseEntity createCourse(@RequestBody CourseEntity course) {
+    public ResponseEntity<CourseProxy> createCourse(@RequestBody CoursePayload coursePayload) {
         return null;
     }
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public ArrayProxy<CourseEntity> getCourses() {
+    public ResponseEntity<ArrayProxy<CourseProxy>> getCourses() {
         return null;
     }
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public CourseEntity getCourse(@PathVariable int id) {
+    public ResponseEntity<CourseProxy> getCourse(@PathVariable int id) {
         return null;
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public void deleteCourse(@PathVariable int id) {
-
+    public ResponseEntity<Void> deleteCourse(@PathVariable int id) {
+        return null;
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public void updateCourse(@PathVariable int id) {
-
+    public ResponseEntity<Void> updateCourse(@PathVariable int id, @RequestBody CoursePayload coursePayload) {
+        return null;
     }
 
 }

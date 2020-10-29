@@ -1,12 +1,14 @@
 package com.app.school.controllers;
 
 import com.app.common.ArrayProxy;
-import com.app.course.models.CourseEntity;
+import com.app.course.models.CourseProxy;
 import com.app.school.models.SchoolEntity;
+import com.app.school.models.SchoolProxy;
 import com.app.school.services.SchoolService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,38 +28,38 @@ public class SchoolController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public SchoolEntity createSchool(@RequestBody SchoolEntity school) {
+    public ResponseEntity<SchoolProxy> createSchool(@RequestBody SchoolEntity school) {
         return null;
     }
 
     @GetMapping
     @ResponseStatus(HttpStatus.OK)
-    public ArrayProxy<SchoolEntity> getSchools() {
+    public ResponseEntity<ArrayProxy<SchoolProxy>> getSchools() {
         return null;
     }
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public SchoolEntity getSchool(@PathVariable int id) {
+    public ResponseEntity<SchoolProxy> getSchool(@PathVariable int id) {
         return null;
     }
 
     @GetMapping("/{id}/courses")
     @ResponseStatus(HttpStatus.OK)
-    public ArrayProxy<CourseEntity> getCourses(@PathVariable int id) {
+    public ResponseEntity<ArrayProxy<CourseProxy>> getCourses(@PathVariable int id) {
         return null;
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public void deleteSchool(@PathVariable int id) {
-
+    public ResponseEntity<Void> deleteSchool(@PathVariable int id) {
+        return null;
     }
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public void updateSchool(@PathVariable int id) {
-
+    public ResponseEntity<Void> updateSchool(@PathVariable int id) {
+        return null;
     }
 
 }
