@@ -4,6 +4,7 @@ import com.app.common.BaseEntity;
 import com.app.common.ToProxy;
 
 public class CourseEntity extends BaseEntity implements ToProxy<CourseProxy> {
+
     private String name;
 
     public CourseEntity(String name) {
@@ -14,4 +15,5 @@ public class CourseEntity extends BaseEntity implements ToProxy<CourseProxy> {
     public CourseProxy toProxy() {
         return new CourseProxy(name);
     }
+
 }

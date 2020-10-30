@@ -1,6 +1,7 @@
 package com.app.school.models;
 
 public class SchoolProxy {
+
     public String name;
     public String address;
 
@@ -8,4 +9,5 @@ public class SchoolProxy {
         this.name = name;
         this.address = address;
     }
+
 }

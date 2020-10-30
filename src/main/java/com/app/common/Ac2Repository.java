@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import javax.annotation.PostConstruct;
 
 public abstract class Ac2Repository<TEntity extends BaseEntity, TPayload extends ToEntity<TEntity>> {
+
     private ArrayList<TEntity> entities;
 
     @PostConstruct
@@ -39,4 +40,5 @@ public abstract class Ac2Repository<TEntity extends BaseEntity, TPayload extends
         TEntity entity = payload.toEntity();
         entities.add(entity);
     }
+
 }
