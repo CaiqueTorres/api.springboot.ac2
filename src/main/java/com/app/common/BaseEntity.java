@@ -2,10 +2,14 @@ package com.app.common;
 
 public abstract class BaseEntity {
 
-    protected int id;
+    protected String id;
 
-    public int getId() {
+    public String getId() {
         return id;
+    }
+
+    public void setId(String value) {
+        id = value;
     }
 
 }

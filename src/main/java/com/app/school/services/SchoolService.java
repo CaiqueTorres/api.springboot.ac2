@@ -1,6 +1,7 @@
 package com.app.school.services;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.app.course.models.CourseEntity;
 import com.app.course.services.CourseService;
@@ -24,24 +25,28 @@ public class SchoolService {
         return this.schoolRepository.save(schoolPayload);
     }
 
-    public ArrayList<SchoolEntity> getSchools() {
+    public List<SchoolEntity> getSchools() {
         return this.schoolRepository.getAll();
     }
 
-    public SchoolEntity getSchool(int id) {
+    public SchoolEntity getSchool(String id) {
         return this.schoolRepository.findOne(id);
     }
 
-    public ArrayList<CourseEntity> getCourses(int id) {
+    public ArrayList<CourseEntity> getCourses(String schoolId) {
         return this.courseService.getCourses();
     }
 
-    public void deleteSchool(int id) {
+    public void deleteSchool(String id) {
         this.schoolRepository.delete(id);
     }
 
-    public void updateSchool(int id, SchoolPayload schoolPayload) {
+    public void updateSchool(String id, SchoolPayload schoolPayload) {
         this.schoolRepository.update(id, schoolPayload);
+    }
+
+    public boolean contains(String id) {
+        return this.schoolRepository.contains(id);
     }
 
 }

@@ -1,13 +1,21 @@
 package com.app.common;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class ArrayProxy<TValue> {
 
-    int length;
-    ArrayList<TValue> elements;
+    private int length;
+    private List<TValue> elements;
 
-    public ArrayProxy(int length, ArrayList<TValue> elements) {
+    public int getLength() {
+        return length;
+    }
+
+    public List<TValue> getElements() {
+        return elements;
+    }
+
+    public ArrayProxy(int length, List<TValue> elements) {
         this.length = length;
         this.elements = elements;
     }
