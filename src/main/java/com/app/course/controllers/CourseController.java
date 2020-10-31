@@ -9,6 +9,7 @@ import com.app.course.models.CreateCoursePayload;
 import com.app.course.models.UpdateCoursePayload;
 import com.app.course.models.CourseProxy;
 import com.app.course.services.CourseService;
+import com.app.exceptions.EntityNotFoundException;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
@@ -56,10 +57,24 @@ public class CourseController {
     public ResponseEntity<CourseProxy> getCourse(
         @PathVariable String id
     ) {
-        CourseEntity entity = this.courseService.getCourse(id);
-        if (entity == null)
+        try {
+            CourseEntity entity = this.courseService.getCourse(id);
+            return ResponseEntity.ok(entity.toProxy());
+        } catch(EntityNotFoundException exception) {
             return ResponseEntity.notFound().build();
-        return ResponseEntity.ok(entity.toProxy());
+        }
+    }
+
+    @DeleteMapping("/{id}")
+    public ResponseEntity<Void> deleteCourse(
+        @PathVariable String id
+    ) {
+        try {
+            this.courseService.deleteCourse(id);
+            return ResponseEntity.ok().build();
+        } catch (EntityNotFoundException exception) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @PutMapping("/{id}")
@@ -67,22 +82,13 @@ public class CourseController {
         @PathVariable String id,
         @RequestBody UpdateCoursePayload coursePayload
     ) {
-        if (!this.courseService.contains(id))
+        try {
+            this.courseService.updateCourse(id, coursePayload);
+            return ResponseEntity.ok().build();
+        } catch (EntityNotFoundException exception) {
             return ResponseEntity.notFound().build();
+        }
         
-        this.courseService.updateCourse(id, coursePayload);
-        return ResponseEntity.ok().build();
-    }
-
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteCourse(
-        @PathVariable String id
-    ) {
-        if (!this.courseService.contains(id))
-            return ResponseEntity.notFound().build();
-        
-        this.courseService.deleteCourse(id);
-        return ResponseEntity.ok().build();
     }
 
 }

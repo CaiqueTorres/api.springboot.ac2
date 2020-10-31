@@ -5,6 +5,7 @@ import java.util.stream.Collectors;
 
 import com.app.common.ArrayProxy;
 import com.app.course.models.CourseProxy;
+import com.app.exceptions.EntityNotFoundException;
 import com.app.school.models.SchoolEntity;
 import com.app.school.models.CreateSchoolPayload;
 import com.app.school.models.SchoolProxy;
@@ -57,10 +58,13 @@ public class SchoolController {
     public ResponseEntity<SchoolProxy> getSchool(
         @PathVariable String id
     ) {
-        SchoolEntity entity = this.schoolService.getSchool(id);
-        if (entity == null)
+        try {
+            SchoolEntity entity = this.schoolService.getSchool(id);
+            return ResponseEntity.ok(entity.toProxy());
+        } catch (EntityNotFoundException exception) {
             return ResponseEntity.notFound().build();
-        return ResponseEntity.ok(entity.toProxy());
+        }
+        
     }
 
     // still not implemented
@@ -76,11 +80,12 @@ public class SchoolController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteSchool(@PathVariable String id) {
-        if (!this.schoolService.contains(id))
+        try {
+            this.schoolService.deleteSchool(id);
+            return ResponseEntity.ok().build();
+        } catch (EntityNotFoundException exception) {
             return ResponseEntity.notFound().build();
-
-        this.schoolService.deleteSchool(id);
-        return ResponseEntity.ok().build();
+        }
     }
 
     @PutMapping("/{id}")
@@ -88,11 +93,12 @@ public class SchoolController {
         @PathVariable String id, 
         @RequestBody UpdateSchoolPayload updateSchoolPayload
     ) {
-        if (!this.schoolService.contains(id))
+        try {
+            this.schoolService.updateSchool(id, updateSchoolPayload);
+            return ResponseEntity.ok().build();
+        } catch (EntityNotFoundException exception) {
             return ResponseEntity.notFound().build();
-
-        this.schoolService.updateSchool(id, updateSchoolPayload);
-        return ResponseEntity.ok().build();
+        }
     }
 
 }

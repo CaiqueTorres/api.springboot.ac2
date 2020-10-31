@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.app.course.models.CourseEntity;
 import com.app.course.services.CourseService;
+import com.app.exceptions.EntityNotFoundException;
 import com.app.school.models.SchoolEntity;
 import com.app.school.models.CreateSchoolPayload;
 import com.app.school.models.UpdateSchoolPayload;
@@ -32,7 +33,10 @@ public class SchoolService {
     }
 
     public SchoolEntity getSchool(String id) {
-        return this.schoolRepository.findOne(id);
+        SchoolEntity entity = this.schoolRepository.findOne(id);
+        if (entity == null)
+            throw new EntityNotFoundException();
+        return entity;
     }
 
     public List<CourseEntity> getCourses(String schoolId) {
@@ -40,15 +44,23 @@ public class SchoolService {
     }
 
     public void deleteSchool(String id) {
+        if (!this.contains(id))
+            throw new EntityNotFoundException();
         this.schoolRepository.delete(id);
     }
 
-    public void updateSchool(String id, UpdateSchoolPayload schoolPayload) {
-        this.schoolRepository.update(id, schoolPayload);
+    public void updateSchool(String id, UpdateSchoolPayload updateSchoolPayload) {
+        if (!this.contains(id))
+            throw new EntityNotFoundException();
+        this.schoolRepository.update(id, updateSchoolPayload);
     }
+
+    //#region Utils
 
     public boolean contains(String id) {
         return this.schoolRepository.contains(id);
     }
+
+    //#endregion
 
 }

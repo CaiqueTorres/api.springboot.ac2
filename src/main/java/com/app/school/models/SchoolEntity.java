@@ -1,7 +1,10 @@
 package com.app.school.models;
 
+import java.util.List;
+
 import com.app.common.BaseEntity;
 import com.app.common.ToProxy;
+import com.app.course.models.CourseEntity;
 
 public class SchoolEntity
     extends BaseEntity implements ToProxy<SchoolProxy> {
@@ -11,6 +14,8 @@ public class SchoolEntity
     private String cnpj;
     private double area;
     private int studentsAmount;
+
+    private List<CourseEntity> courses;
 
     public void setArea(double area) {
         this.area = area;
