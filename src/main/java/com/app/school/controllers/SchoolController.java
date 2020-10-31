@@ -3,6 +3,8 @@ package com.app.school.controllers;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.servlet.http.HttpServletRequest;
+
 import com.app.common.ArrayProxy;
 import com.app.course.models.CourseEntity;
 import com.app.course.models.CourseProxy;
@@ -24,6 +26,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponents;
+import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
 @RequestMapping(value = "schools")
@@ -36,10 +40,17 @@ public class SchoolController {
 
     @PostMapping
     public ResponseEntity<SchoolProxy> createSchool(
-        @RequestBody CreateSchoolPayload schoolPayload
+        @RequestBody final CreateSchoolPayload schoolPayload,
+        final HttpServletRequest request,
+        final UriComponentsBuilder builder
     ) {
         SchoolEntity entity = this.schoolService.createSchool(schoolPayload);
-        return ResponseEntity.ok(entity.toProxy());
+        UriComponents uriComponents = builder.path(
+            request.getRequestURI()
+            + "/"
+            + entity.getId()
+        ).build();
+        return ResponseEntity.created(uriComponents.toUri()).build();
     }
 
     @GetMapping
@@ -58,7 +69,7 @@ public class SchoolController {
 
     @GetMapping("/{id}")
     public ResponseEntity<SchoolProxy> getSchool(
-        @PathVariable String id
+        @PathVariable final String id
     ) {
         try {
             SchoolEntity entity = this.schoolService.getSchool(id);
@@ -69,10 +80,9 @@ public class SchoolController {
         
     }
 
-    // still not implemented
     @GetMapping("/{id}/courses")
     public ResponseEntity<ArrayProxy<CourseProxy>> getCourses(
-        @PathVariable String id
+        @PathVariable final String id
     ) {
         try {
             List<CourseEntity> entities = this.schoolService.getCourses(id);
@@ -91,7 +101,9 @@ public class SchoolController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteSchool(@PathVariable String id) {
+    public ResponseEntity<Void> deleteSchool(
+        @PathVariable final String id
+    ) {
         try {
             this.schoolService.deleteSchool(id);
             return ResponseEntity.ok().build();
@@ -104,8 +116,8 @@ public class SchoolController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Void> updateSchool(
-        @PathVariable String id, 
-        @RequestBody UpdateSchoolPayload updateSchoolPayload
+        @PathVariable final String id, 
+        @RequestBody final UpdateSchoolPayload updateSchoolPayload
     ) {
         try {
             this.schoolService.updateSchool(id, updateSchoolPayload);

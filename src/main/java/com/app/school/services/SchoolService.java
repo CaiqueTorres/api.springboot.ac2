@@ -30,7 +30,7 @@ public class SchoolService {
     }
 
     public List<SchoolEntity> getSchools() {
-        return this.schoolRepository.getAll();
+        return this.schoolRepository.find();
     }
 
     public SchoolEntity getSchool(String id) {

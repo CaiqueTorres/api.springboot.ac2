@@ -3,9 +3,7 @@ package com.app.school.models;
 
 import com.app.common.BaseEntity;
 import com.app.common.ToProxy;
-import com.fasterxml.jackson.annotation.JsonInclude;
 
-@JsonInclude(value = JsonInclude.Include.NON_NULL)
 public class SchoolEntity
     extends BaseEntity implements ToProxy<SchoolProxy> {
 
