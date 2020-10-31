@@ -5,7 +5,8 @@ import java.util.List;
 import com.app.course.models.CourseEntity;
 import com.app.course.services.CourseService;
 import com.app.school.models.SchoolEntity;
-import com.app.school.models.SchoolPayload;
+import com.app.school.models.CreateSchoolPayload;
+import com.app.school.models.UpdateSchoolPayload;
 import com.app.school.repositories.SchoolRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,7 +23,7 @@ public class SchoolService {
 
     public SchoolService() { }
 
-    public SchoolEntity createSchool(SchoolPayload schoolPayload) {
+    public SchoolEntity createSchool(CreateSchoolPayload schoolPayload) {
         return this.schoolRepository.save(schoolPayload);
     }
 
@@ -42,7 +43,7 @@ public class SchoolService {
         this.schoolRepository.delete(id);
     }
 
-    public void updateSchool(String id, SchoolPayload schoolPayload) {
+    public void updateSchool(String id, UpdateSchoolPayload schoolPayload) {
         this.schoolRepository.update(id, schoolPayload);
     }
 

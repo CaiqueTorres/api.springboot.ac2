@@ -6,7 +6,11 @@ import java.util.UUID;
 
 import javax.annotation.PostConstruct;
 
-public abstract class Ac2Repository<TEntity extends BaseEntity, TPayload extends ToEntity<TEntity>> {
+public abstract class Ac2Repository<
+    TEntity extends BaseEntity,
+    TCreatePayload extends ToEntity<TEntity>,
+    TUpdatePayload extends ModifyEntity<TEntity>
+> {
 
     private List<TEntity> entities;
 
@@ -15,8 +19,8 @@ public abstract class Ac2Repository<TEntity extends BaseEntity, TPayload extends
         entities = new ArrayList<TEntity>();
     }
 
-    public TEntity save(TPayload payload) {
-        TEntity entity = payload.toEntity();
+    public TEntity save(TCreatePayload createPayload) {
+        TEntity entity = createPayload.toEntity();
         entity.setId(UUID.randomUUID().toString());
         entities.add(entity);
         return entity;
@@ -38,11 +42,8 @@ public abstract class Ac2Repository<TEntity extends BaseEntity, TPayload extends
         entities.removeIf(entity -> entity.id.equals(id));
     }
 
-    public void update(String id, TPayload payload) {
-        delete(id);
-        TEntity entity = payload.toEntity();
-        entity.setId(id);
-        entities.add(entity);
+    public void update(String id, TUpdatePayload updatePayload) {
+        updatePayload.modifyEntity(findOne(id));
     }
 
     public boolean contains(String id) {
