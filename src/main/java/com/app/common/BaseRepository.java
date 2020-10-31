@@ -8,7 +8,7 @@ import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 
-public abstract class Ac2Repository<
+public abstract class BaseRepository<
     TEntity extends BaseEntity,
     TCreatePayload extends ToEntity<TEntity>,
     TUpdatePayload extends ModifyEntity<TEntity>
@@ -16,7 +16,7 @@ public abstract class Ac2Repository<
 
     private List<TEntity> entities;
 
-    public Ac2Repository() { }
+    public BaseRepository() { }
 
     @PostConstruct
     public void initialize() {
