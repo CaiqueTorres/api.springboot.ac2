@@ -14,6 +14,8 @@ public abstract class Ac2Repository<
 
     private List<TEntity> entities;
 
+    public Ac2Repository() { }
+
     @PostConstruct
     public void initialize() {
         entities = new ArrayList<TEntity>();
