@@ -3,6 +3,8 @@ package com.app.course.controllers;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.servlet.http.HttpServletRequest;
+
 import com.app.common.ArrayProxy;
 import com.app.course.models.CourseEntity;
 import com.app.course.models.CreateCoursePayload;
@@ -21,6 +23,8 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponents;
+import org.springframework.web.util.UriComponentsBuilder;
 
 @RestController
 @RequestMapping(value = "courses")
@@ -33,11 +37,18 @@ public class CourseController {
 
     @PostMapping
     public ResponseEntity<CourseProxy> createCourse(
-        @RequestBody final CreateCoursePayload coursePayload
+        @RequestBody final CreateCoursePayload coursePayload,
+        final HttpServletRequest request,
+        final UriComponentsBuilder builder
     ) {
         try {
             CourseEntity entity = this.courseService.createCourse(coursePayload);
-            return ResponseEntity.ok(entity.toProxy());
+            UriComponents uriComponents = builder.path(
+            request.getRequestURI()
+            + "/"
+            + entity.getId()
+        ).build();
+        return ResponseEntity.created(uriComponents.toUri()).build();
         } catch (EntityNotFoundException exception) {
             return ResponseEntity.notFound().build();
         }

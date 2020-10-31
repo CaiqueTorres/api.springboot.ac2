@@ -80,7 +80,6 @@ public class SchoolController {
         
     }
 
-    // still not implemented
     @GetMapping("/{id}/courses")
     public ResponseEntity<ArrayProxy<CourseProxy>> getCourses(
         @PathVariable final String id
