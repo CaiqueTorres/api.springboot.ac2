@@ -1,6 +1,5 @@
 package com.app.school.services;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import com.app.course.models.CourseEntity;
@@ -21,6 +20,8 @@ public class SchoolService {
     @Autowired
     private CourseService courseService;
 
+    public SchoolService() { }
+
     public SchoolEntity createSchool(SchoolPayload schoolPayload) {
         return this.schoolRepository.save(schoolPayload);
     }
@@ -33,7 +34,7 @@ public class SchoolService {
         return this.schoolRepository.findOne(id);
     }
 
-    public ArrayList<CourseEntity> getCourses(String schoolId) {
+    public List<CourseEntity> getCourses(String schoolId) {
         return this.courseService.getCourses();
     }
 

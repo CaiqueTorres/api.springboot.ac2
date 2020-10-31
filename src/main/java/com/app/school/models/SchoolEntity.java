@@ -15,7 +15,7 @@ public class SchoolEntity extends BaseEntity implements ToProxy<SchoolProxy> {
 
     @Override
     public SchoolProxy toProxy() {
-        return new SchoolProxy(name, address);
+        return new SchoolProxy(id, name, address);
     }
 
 }

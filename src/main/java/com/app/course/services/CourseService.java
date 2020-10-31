@@ -1,6 +1,6 @@
 package com.app.course.services;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import com.app.course.models.CourseEntity;
 import com.app.course.models.CoursePayload;
@@ -15,24 +15,30 @@ public class CourseService {
     @Autowired
     private CourseRepository courseRepository;
 
+    public CourseService() { }
+
     public CourseEntity createCourse(CoursePayload coursePayload) {
         return this.courseRepository.save(coursePayload);
     }
 
-    public ArrayList<CourseEntity> getCourses() {
+    public List<CourseEntity> getCourses() {
         return this.courseRepository.getAll();
     }
 
-    public CourseEntity getCourse(int id) {
+    public CourseEntity getCourse(String id) {
         return this.courseRepository.findOne(id);
     }
 
-    public void deleteCourse(int id) {
+    public void deleteCourse(String id) {
         this.courseRepository.delete(id);
     }
 
-    public void updateCourse(int id, CoursePayload coursePayload) {
+    public void updateCourse(String id, CoursePayload coursePayload) {
         this.courseRepository.update(id, coursePayload);
+    }
+
+    public boolean contains(String id) {
+        return this.courseRepository.contains(id);
     }
 
 }

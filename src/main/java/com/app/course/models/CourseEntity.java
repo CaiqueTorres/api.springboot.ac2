@@ -13,7 +13,7 @@ public class CourseEntity extends BaseEntity implements ToProxy<CourseProxy> {
 
     @Override
     public CourseProxy toProxy() {
-        return new CourseProxy(name);
+        return new CourseProxy(id, name);
     }
 
 }

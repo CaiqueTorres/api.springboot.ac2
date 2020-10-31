@@ -1,6 +1,5 @@
 package com.app.school.controllers;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -11,6 +10,7 @@ import com.app.school.models.SchoolPayload;
 import com.app.school.models.SchoolProxy;
 import com.app.school.services.SchoolService;
 
+import org.apache.catalina.connector.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,9 +31,13 @@ public class SchoolController {
     @Autowired
     private SchoolService schoolService;
 
+    public SchoolController() { }
+
     @PostMapping
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<SchoolProxy> createSchool(@RequestBody SchoolPayload schoolPayload) {
+    public ResponseEntity<SchoolProxy> createSchool(
+        @RequestBody SchoolPayload schoolPayload
+    ) {
         SchoolEntity entity = this.schoolService.createSchool(schoolPayload);
         return ResponseEntity.ok(entity.toProxy());
     }
@@ -55,7 +59,9 @@ public class SchoolController {
 
     @GetMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<SchoolProxy> getSchool(@PathVariable String id) {
+    public ResponseEntity<SchoolProxy> getSchool(
+        @PathVariable String id
+    ) {
         SchoolEntity entity = this.schoolService.getSchool(id);
         if (entity == null)
             return ResponseEntity.notFound().build();
@@ -65,7 +71,9 @@ public class SchoolController {
     // still not implemented
     @GetMapping("/{id}/courses")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<ArrayProxy<CourseProxy>> getCourses(@PathVariable String id) {
+    public ResponseEntity<ArrayProxy<CourseProxy>> getCourses(
+        @PathVariable String id
+    ) {
         SchoolEntity entity = this.schoolService.getSchool(id);
         if (entity == null)
             return ResponseEntity.notFound().build();
@@ -84,7 +92,10 @@ public class SchoolController {
 
     @PutMapping("/{id}")
     @ResponseStatus(HttpStatus.OK)
-    public ResponseEntity<Void> updateSchool(@PathVariable String id, @RequestBody SchoolPayload schoolPayload) {
+    public ResponseEntity<Void> updateSchool(
+        @PathVariable String id, 
+        @RequestBody SchoolPayload schoolPayload
+    ) {
         if (!this.schoolService.contains(id))
             return ResponseEntity.notFound().build();
 

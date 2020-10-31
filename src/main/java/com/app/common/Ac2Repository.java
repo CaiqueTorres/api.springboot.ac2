@@ -24,7 +24,7 @@ public abstract class Ac2Repository<TEntity extends BaseEntity, TPayload extends
 
     public TEntity findOne(String id) {
         for (int i = 0; i < entities.size(); i++) {
-            if (entities.get(i).getId() == id)
+            if (entities.get(i).getId().equals(id))
                 return entities.get(i);
         }
         return null;
@@ -35,7 +35,7 @@ public abstract class Ac2Repository<TEntity extends BaseEntity, TPayload extends
     }
 
     public void delete(String id) {
-        entities.removeIf(entity -> entity.id == id);
+        entities.removeIf(entity -> entity.id.equals(id));
     }
 
     public void update(String id, TPayload payload) {
@@ -46,7 +46,7 @@ public abstract class Ac2Repository<TEntity extends BaseEntity, TPayload extends
     }
 
     public boolean contains(String id) {
-        return entities.stream().anyMatch(entity -> entity.id == id);
+        return entities.stream().anyMatch(entity -> entity.id.equals(id));
     }
 
 }
