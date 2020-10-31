@@ -3,6 +3,8 @@ package com.app.common;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
+import java.util.function.Predicate;
+import java.util.stream.Collectors;
 
 import javax.annotation.PostConstruct;
 
@@ -34,6 +36,13 @@ public abstract class Ac2Repository<
                 return entities.get(i);
         }
         return null;
+    }
+
+    public List<TEntity> find(Predicate<TEntity> predicate) {
+        return entities
+            .stream()
+            .filter(predicate)
+            .collect(Collectors.toList());
     }
 
     public List<TEntity> getAll() {
