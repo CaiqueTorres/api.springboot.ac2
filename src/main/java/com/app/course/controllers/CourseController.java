@@ -33,7 +33,7 @@ public class CourseController {
 
     @PostMapping
     public ResponseEntity<CourseProxy> createCourse(
-        @RequestBody CreateCoursePayload coursePayload
+        @RequestBody final CreateCoursePayload coursePayload
     ) {
         try {
             CourseEntity entity = this.courseService.createCourse(coursePayload);
@@ -59,7 +59,7 @@ public class CourseController {
     
     @GetMapping("/{id}")
     public ResponseEntity<CourseProxy> getCourse(
-        @PathVariable String id
+        @PathVariable final String id
     ) {
         try {
             CourseEntity entity = this.courseService.getCourse(id);
@@ -71,7 +71,7 @@ public class CourseController {
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deleteCourse(
-        @PathVariable String id
+        @PathVariable final String id
     ) {
         try {
             this.courseService.deleteCourse(id);
@@ -83,8 +83,8 @@ public class CourseController {
 
     @PutMapping("/{id}")
     public ResponseEntity<Void> updateCourse(
-        @PathVariable String id,
-        @RequestBody UpdateCoursePayload coursePayload
+        @PathVariable final String id,
+        @RequestBody final UpdateCoursePayload coursePayload
     ) {
         try {
             this.courseService.updateCourse(id, coursePayload);

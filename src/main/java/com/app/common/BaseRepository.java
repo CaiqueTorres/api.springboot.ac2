@@ -50,12 +50,13 @@ public abstract class BaseRepository<
             .collect(Collectors.toList());
     }
 
-    public List<TEntity> getAll() {
+    public List<TEntity> find() {
         return entities;
     }
 
     public void delete(String id) {
-        entities.removeIf(entity -> entity.id.equals(id));
+        entities
+            .removeIf(entity -> entity.id.equals(id));
     }
 
     public void update(String id, TUpdatePayload updatePayload) {
@@ -63,7 +64,9 @@ public abstract class BaseRepository<
     }
 
     public boolean contains(String id) {
-        return entities.stream().anyMatch(entity -> entity.id.equals(id));
+        return entities
+            .stream()
+            .anyMatch(entity -> entity.id.equals(id));
     }
 
 }

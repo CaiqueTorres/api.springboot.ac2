@@ -36,7 +36,7 @@ public class CourseService {
     }
 
     public List<CourseEntity> getCourses() {
-        return this.courseRepository.getAll();
+        return this.courseRepository.find();
     }
 
     public List<CourseEntity> getCoursesBy(Predicate<CourseEntity> predicate) {
