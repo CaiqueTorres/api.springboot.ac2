@@ -9,7 +9,7 @@ public class CreateCoursePayload implements ToEntity<CourseEntity> {
     public int maxStudentsAmount;
     public String responsibleTeacher;
     public float duration;
-
+    public String schoolId;
 
     @Override
     public CourseEntity toEntity() {

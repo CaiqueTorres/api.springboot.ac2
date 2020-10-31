@@ -35,8 +35,12 @@ public class CourseController {
     public ResponseEntity<CourseProxy> createCourse(
         @RequestBody CreateCoursePayload coursePayload
     ) {
-        CourseEntity entity = this.courseService.createCourse(coursePayload);
-        return ResponseEntity.ok(entity.toProxy());
+        try {
+            CourseEntity entity = this.courseService.createCourse(coursePayload);
+            return ResponseEntity.ok(entity.toProxy());
+        } catch (EntityNotFoundException exception) {
+            return ResponseEntity.notFound().build();
+        }
     }
 
     @GetMapping

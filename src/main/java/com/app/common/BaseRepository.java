@@ -30,6 +30,11 @@ public abstract class BaseRepository<
         return entity;
     }
 
+    public void save(TEntity entity) {
+        entity.setId(UUID.randomUUID().toString());
+        entities.add(entity);
+    }
+
     public TEntity findOne(String id) {
         for (int i = 0; i < entities.size(); i++) {
             if (entities.get(i).getId().equals(id))

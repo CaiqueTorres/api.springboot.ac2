@@ -4,7 +4,9 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 import com.app.common.ArrayProxy;
+import com.app.course.models.CourseEntity;
 import com.app.course.models.CourseProxy;
+import com.app.exceptions.DepedencyConflictException;
 import com.app.exceptions.EntityNotFoundException;
 import com.app.school.models.SchoolEntity;
 import com.app.school.models.CreateSchoolPayload;
@@ -72,10 +74,20 @@ public class SchoolController {
     public ResponseEntity<ArrayProxy<CourseProxy>> getCourses(
         @PathVariable String id
     ) {
-        SchoolEntity entity = this.schoolService.getSchool(id);
-        if (entity == null)
+        try {
+            List<CourseEntity> entities = this.schoolService.getCourses(id);
+            return ResponseEntity.ok(
+                new ArrayProxy<CourseProxy>(
+                    entities.size(),
+                    entities
+                        .stream()
+                        .map(entity -> entity.toProxy())
+                        .collect(Collectors.toList())
+                )
+            );
+        } catch (EntityNotFoundException exception) {
             return ResponseEntity.notFound().build();
-        return null;
+        } 
     }
 
     @DeleteMapping("/{id}")
@@ -85,6 +97,8 @@ public class SchoolController {
             return ResponseEntity.ok().build();
         } catch (EntityNotFoundException exception) {
             return ResponseEntity.notFound().build();
+        } catch (DepedencyConflictException exception) {
+            return ResponseEntity.badRequest().build();
         }
     }
 

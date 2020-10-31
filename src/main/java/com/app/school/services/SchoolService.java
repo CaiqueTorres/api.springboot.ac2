@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.app.course.models.CourseEntity;
 import com.app.course.services.CourseService;
+import com.app.exceptions.DepedencyConflictException;
 import com.app.exceptions.EntityNotFoundException;
 import com.app.school.models.SchoolEntity;
 import com.app.school.models.CreateSchoolPayload;
@@ -40,12 +41,20 @@ public class SchoolService {
     }
 
     public List<CourseEntity> getCourses(String schoolId) {
-        return this.courseService.getCourses();
+        SchoolEntity entity = this.schoolRepository.findOne(schoolId);
+        if (entity == null)
+            throw new EntityNotFoundException();
+        
+        return this.courseService.getCoursesBy(
+            coureEntity -> coureEntity.getSchoolEntity().equals(entity));
     }
 
     public void deleteSchool(String id) {
-        if (!this.contains(id))
-            throw new EntityNotFoundException();
+        List<CourseEntity> courses = getCourses(id);
+
+        if (courses.size() > 0)
+            throw new DepedencyConflictException();
+
         this.schoolRepository.delete(id);
     }
 

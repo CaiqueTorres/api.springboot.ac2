@@ -2,6 +2,7 @@ package com.app.course.models;
 
 import com.app.common.BaseEntity;
 import com.app.common.ToProxy;
+import com.app.school.models.SchoolEntity;
 
 public class CourseEntity 
     extends BaseEntity implements ToProxy<CourseProxy> {
@@ -11,9 +12,18 @@ public class CourseEntity
     private int maxStudentsAmount;
     private String responsibleTeacher;
     private float duration;
+    private SchoolEntity schoolEntity;
 
     public void setResponsibleTeacher(String responsibleTeacher) {
         this.responsibleTeacher = responsibleTeacher;
+    }
+
+    public void setSchoolEntity(SchoolEntity schoolEntity) {
+        this.schoolEntity = schoolEntity;
+    }
+
+    public SchoolEntity getSchoolEntity() {
+        return schoolEntity;
     }
 
     public CourseEntity(
@@ -38,7 +48,8 @@ public class CourseEntity
             needsLab,
             maxStudentsAmount,
             responsibleTeacher,
-            duration
+            duration,
+            schoolEntity.toProxy()
         );
     }
 

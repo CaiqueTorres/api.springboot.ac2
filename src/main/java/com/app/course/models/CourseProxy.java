@@ -1,5 +1,7 @@
 package com.app.course.models;
 
+import com.app.school.models.SchoolProxy;
+
 public class CourseProxy {
 
     public String id;
@@ -8,6 +10,7 @@ public class CourseProxy {
     public int maxStudentsAmount;
     public String responsibleTeacher;
     public float duration;
+    public SchoolProxy school;
 
     public CourseProxy(
         String id,
@@ -15,7 +18,8 @@ public class CourseProxy {
         boolean needsLab,
         int maxStudentsAmount,
         String responsibleTeacher,
-        float duration
+        float duration,
+        SchoolProxy school
     ) {
         this.id = id;
         this.name = name;
@@ -23,6 +27,7 @@ public class CourseProxy {
         this.maxStudentsAmount = maxStudentsAmount;
         this.responsibleTeacher = responsibleTeacher;
         this.duration = duration;
+        this.school = school;
     }
 
 }
