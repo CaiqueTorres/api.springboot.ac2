@@ -2,7 +2,7 @@ package com.app.course.models;
 
 import com.app.common.ToEntity;
 
-public class CreateCoursePayload implements ToEntity<CourseEntity> {
+public class CreateCourseDTO implements ToEntity<Course> {
 
     public String name;
     public boolean needsLab;
@@ -12,8 +12,8 @@ public class CreateCoursePayload implements ToEntity<CourseEntity> {
     public String schoolId;
 
     @Override
-    public CourseEntity toEntity() {
-        return new CourseEntity(name,
+    public Course toEntity() {
+        return new Course(name,
             needsLab,
             maxStudentsAmount,
             responsibleTeacher,

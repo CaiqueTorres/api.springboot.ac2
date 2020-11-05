@@ -2,13 +2,13 @@ package com.app.school.services;
 
 import java.util.List;
 
-import com.app.course.models.CourseEntity;
+import com.app.course.models.Course;
 import com.app.course.services.CourseService;
 import com.app.exceptions.DepedencyConflictException;
 import com.app.exceptions.EntityNotFoundException;
-import com.app.school.models.SchoolEntity;
-import com.app.school.models.CreateSchoolPayload;
-import com.app.school.models.UpdateSchoolPayload;
+import com.app.school.models.School;
+import com.app.school.models.CreateSchoolDTO;
+import com.app.school.models.UpdateSchoolDTO;
 import com.app.school.repositories.SchoolRepository;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,23 +25,23 @@ public class SchoolService {
 
     public SchoolService() { }
 
-    public SchoolEntity createSchool(CreateSchoolPayload schoolPayload) {
-        return this.schoolRepository.save(schoolPayload);
+    public School createSchool(CreateSchoolDTO createSchoolDto) {
+        return this.schoolRepository.save(createSchoolDto);
     }
 
-    public List<SchoolEntity> getSchools() {
+    public List<School> getSchools() {
         return this.schoolRepository.find();
     }
 
-    public SchoolEntity getSchool(String id) {
-        SchoolEntity entity = this.schoolRepository.findOne(id);
+    public School getSchool(String id) {
+        School entity = this.schoolRepository.findOne(id);
         if (entity == null)
             throw new EntityNotFoundException();
         return entity;
     }
 
-    public List<CourseEntity> getCourses(String schoolId) {
-        SchoolEntity entity = this.schoolRepository.findOne(schoolId);
+    public List<Course> getCourses(String schoolId) {
+        School entity = this.schoolRepository.findOne(schoolId);
         if (entity == null)
             throw new EntityNotFoundException();
         
@@ -50,7 +50,7 @@ public class SchoolService {
     }
 
     public void deleteSchool(String id) {
-        List<CourseEntity> courses = getCourses(id);
+        List<Course> courses = getCourses(id);
 
         if (courses.size() > 0)
             throw new DepedencyConflictException();
@@ -58,10 +58,10 @@ public class SchoolService {
         this.schoolRepository.delete(id);
     }
 
-    public void updateSchool(String id, UpdateSchoolPayload updateSchoolPayload) {
+    public void updateSchool(String id, UpdateSchoolDTO updateSchoolDto) {
         if (!this.contains(id))
             throw new EntityNotFoundException();
-        this.schoolRepository.update(id, updateSchoolPayload);
+        this.schoolRepository.update(id, updateSchoolDto);
     }
 
     //#region Utils

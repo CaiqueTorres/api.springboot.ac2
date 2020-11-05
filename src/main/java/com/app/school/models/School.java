@@ -2,10 +2,10 @@ package com.app.school.models;
 
 
 import com.app.common.BaseEntity;
-import com.app.common.ToProxy;
+import com.app.common.ToDTO;
 
-public class SchoolEntity
-    extends BaseEntity implements ToProxy<SchoolProxy> {
+public class School
+    extends BaseEntity implements ToDTO<SchoolDTO> {
 
     private String name;
     private String address;
@@ -21,7 +21,7 @@ public class SchoolEntity
         this.studentsAmount = studentsAmount;
     }
 
-    public SchoolEntity(
+    public School(
         String name,
         String address,
         String cnpj,
@@ -36,8 +36,8 @@ public class SchoolEntity
     }
 
     @Override
-    public SchoolProxy toProxy() {
-        return new SchoolProxy(
+    public SchoolDTO toDTO() {
+        return new SchoolDTO(
             id,
             name,
             address,

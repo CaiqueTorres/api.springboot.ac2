@@ -6,14 +6,14 @@ import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletRequest;
 
 import com.app.common.ArrayProxy;
-import com.app.course.models.CourseEntity;
-import com.app.course.models.CourseProxy;
+import com.app.course.models.Course;
+import com.app.course.models.CourseDTO;
 import com.app.exceptions.DepedencyConflictException;
 import com.app.exceptions.EntityNotFoundException;
-import com.app.school.models.SchoolEntity;
-import com.app.school.models.CreateSchoolPayload;
-import com.app.school.models.SchoolProxy;
-import com.app.school.models.UpdateSchoolPayload;
+import com.app.school.models.School;
+import com.app.school.models.CreateSchoolDTO;
+import com.app.school.models.SchoolDTO;
+import com.app.school.models.UpdateSchoolDTO;
 import com.app.school.services.SchoolService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,12 +39,12 @@ public class SchoolController {
     public SchoolController() { }
 
     @PostMapping
-    public ResponseEntity<SchoolProxy> createSchool(
-        @RequestBody final CreateSchoolPayload schoolPayload,
+    public ResponseEntity<SchoolDTO> createSchool(
+        @RequestBody final CreateSchoolDTO createSchoolDto,
         final HttpServletRequest request,
         final UriComponentsBuilder builder
     ) {
-        SchoolEntity entity = this.schoolService.createSchool(schoolPayload);
+        School entity = this.schoolService.createSchool(createSchoolDto);
         UriComponents uriComponents = builder.path(
             request.getRequestURI()
             + "/"
@@ -54,26 +54,26 @@ public class SchoolController {
     }
 
     @GetMapping
-    public ResponseEntity<ArrayProxy<SchoolProxy>> getSchools() {
-        List<SchoolEntity> entities = this.schoolService.getSchools();
+    public ResponseEntity<ArrayProxy<SchoolDTO>> getSchools() {
+        List<School> entities = this.schoolService.getSchools();
         return ResponseEntity.ok(
-            new ArrayProxy<SchoolProxy>(
+            new ArrayProxy<SchoolDTO>(
                 entities.size(),
                 entities
                     .stream()
-                    .map(entity -> entity.toProxy())
+                    .map(entity -> entity.toDTO())
                     .collect(Collectors.toList())
             )
         );
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<SchoolProxy> getSchool(
+    public ResponseEntity<SchoolDTO> getSchool(
         @PathVariable final String id
     ) {
         try {
-            SchoolEntity entity = this.schoolService.getSchool(id);
-            return ResponseEntity.ok(entity.toProxy());
+            School entity = this.schoolService.getSchool(id);
+            return ResponseEntity.ok(entity.toDTO());
         } catch (EntityNotFoundException exception) {
             return ResponseEntity.notFound().build();
         }
@@ -81,17 +81,17 @@ public class SchoolController {
     }
 
     @GetMapping("/{id}/courses")
-    public ResponseEntity<ArrayProxy<CourseProxy>> getCourses(
+    public ResponseEntity<ArrayProxy<CourseDTO>> getCourses(
         @PathVariable final String id
     ) {
         try {
-            List<CourseEntity> entities = this.schoolService.getCourses(id);
+            List<Course> entities = this.schoolService.getCourses(id);
             return ResponseEntity.ok(
-                new ArrayProxy<CourseProxy>(
+                new ArrayProxy<CourseDTO>(
                     entities.size(),
                     entities
                         .stream()
-                        .map(entity -> entity.toProxy())
+                        .map(entity -> entity.toDTO())
                         .collect(Collectors.toList())
                 )
             );
@@ -117,10 +117,10 @@ public class SchoolController {
     @PutMapping("/{id}")
     public ResponseEntity<Void> updateSchool(
         @PathVariable final String id, 
-        @RequestBody final UpdateSchoolPayload updateSchoolPayload
+        @RequestBody final UpdateSchoolDTO updateSchoolDto
     ) {
         try {
-            this.schoolService.updateSchool(id, updateSchoolPayload);
+            this.schoolService.updateSchool(id, updateSchoolDto);
             return ResponseEntity.ok().build();
         } catch (EntityNotFoundException exception) {
             return ResponseEntity.notFound().build();

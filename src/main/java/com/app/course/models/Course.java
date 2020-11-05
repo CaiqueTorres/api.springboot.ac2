@@ -1,32 +1,32 @@
 package com.app.course.models;
 
 import com.app.common.BaseEntity;
-import com.app.common.ToProxy;
-import com.app.school.models.SchoolEntity;
+import com.app.common.ToDTO;
+import com.app.school.models.School;
 
-public class CourseEntity 
-    extends BaseEntity implements ToProxy<CourseProxy> {
+public class Course 
+    extends BaseEntity implements ToDTO<CourseDTO> {
 
     private String name;
     private boolean needsLab;
     private int maxStudentsAmount;
     private String responsibleTeacher;
     private float duration;
-    private SchoolEntity schoolEntity;
+    private School schoolEntity;
 
     public void setResponsibleTeacher(String responsibleTeacher) {
         this.responsibleTeacher = responsibleTeacher;
     }
 
-    public void setSchoolEntity(SchoolEntity schoolEntity) {
+    public void setSchoolEntity(School schoolEntity) {
         this.schoolEntity = schoolEntity;
     }
 
-    public SchoolEntity getSchoolEntity() {
+    public School getSchoolEntity() {
         return schoolEntity;
     }
 
-    public CourseEntity(
+    public Course(
         String name,
         boolean needsLab,
         int maxStudentsAmount,
@@ -41,15 +41,15 @@ public class CourseEntity
     }
 
     @Override
-    public CourseProxy toProxy() {
-        return new CourseProxy(
+    public CourseDTO toDTO() {
+        return new CourseDTO(
             id,
             name,
             needsLab,
             maxStudentsAmount,
             responsibleTeacher,
             duration,
-            schoolEntity.toProxy()
+            schoolEntity.toDTO()
         );
     }
 

@@ -3,12 +3,12 @@ package com.app.course.services;
 import java.util.List;
 import java.util.function.Predicate;
 
-import com.app.course.models.CourseEntity;
-import com.app.course.models.CreateCoursePayload;
-import com.app.course.models.UpdateCoursePayload;
+import com.app.course.models.Course;
+import com.app.course.models.CreateCourseDTO;
+import com.app.course.models.UpdateCourseDTO;
 import com.app.course.repositories.CourseRepository;
 import com.app.exceptions.EntityNotFoundException;
-import com.app.school.models.SchoolEntity;
+import com.app.school.models.School;
 import com.app.school.services.SchoolService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,26 +25,26 @@ public class CourseService {
 
     public CourseService() { }
 
-    public CourseEntity createCourse(CreateCoursePayload createCoursePayload) {
-        SchoolEntity schoolEntity = 
-            this.schoolService.getSchool(createCoursePayload.schoolId);
+    public Course createCourse(CreateCourseDTO createCourseDto) {
+        School schoolEntity = 
+            this.schoolService.getSchool(createCourseDto.schoolId);
 
-        CourseEntity entity = this.courseRepository.save(createCoursePayload);
+        Course entity = this.courseRepository.save(createCourseDto);
         entity.setSchoolEntity(schoolEntity);
 
         return entity;
     }
 
-    public List<CourseEntity> getCourses() {
+    public List<Course> getCourses() {
         return this.courseRepository.find();
     }
 
-    public List<CourseEntity> getCoursesBy(Predicate<CourseEntity> predicate) {
+    public List<Course> getCoursesBy(Predicate<Course> predicate) {
         return this.courseRepository.find(predicate);
     }
 
-    public CourseEntity getCourse(String id) {
-        CourseEntity entity = this.courseRepository.findOne(id);
+    public Course getCourse(String id) {
+        Course entity = this.courseRepository.findOne(id);
         if (entity == null)
             throw new EntityNotFoundException();
         return entity;
@@ -56,10 +56,10 @@ public class CourseService {
         this.courseRepository.delete(id);
     }
 
-    public void updateCourse(String id, UpdateCoursePayload updateCoursePayload) {
+    public void updateCourse(String id, UpdateCourseDTO updateCourseDto) {
         if (!this.contains(id))
             throw new EntityNotFoundException();
-        this.courseRepository.update(id, updateCoursePayload);
+        this.courseRepository.update(id, updateCourseDto);
     }
 
     //#region Utils

@@ -1,8 +1,8 @@
 package com.app.course.models;
 
-import com.app.school.models.SchoolProxy;
+import com.app.school.models.SchoolDTO;
 
-public class CourseProxy {
+public class CourseDTO {
 
     public String id;
     public String name;
@@ -10,16 +10,16 @@ public class CourseProxy {
     public int maxStudentsAmount;
     public String responsibleTeacher;
     public float duration;
-    public SchoolProxy school;
+    public SchoolDTO school;
 
-    public CourseProxy(
+    public CourseDTO(
         String id,
         String name,
         boolean needsLab,
         int maxStudentsAmount,
         String responsibleTeacher,
         float duration,
-        SchoolProxy school
+        SchoolDTO school
     ) {
         this.id = id;
         this.name = name;

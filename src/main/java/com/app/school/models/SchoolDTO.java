@@ -1,6 +1,6 @@
 package com.app.school.models;
 
-public class SchoolProxy {
+public class SchoolDTO {
 
     public String id;
     public String name;
@@ -9,7 +9,7 @@ public class SchoolProxy {
     public double area;
     public int studentsAmount;
 
-    public SchoolProxy(
+    public SchoolDTO(
         String id,
         String name,
         String address,

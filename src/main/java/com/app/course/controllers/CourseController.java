@@ -6,10 +6,10 @@ import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletRequest;
 
 import com.app.common.ArrayProxy;
-import com.app.course.models.CourseEntity;
-import com.app.course.models.CreateCoursePayload;
-import com.app.course.models.UpdateCoursePayload;
-import com.app.course.models.CourseProxy;
+import com.app.course.models.Course;
+import com.app.course.models.CreateCourseDTO;
+import com.app.course.models.UpdateCourseDTO;
+import com.app.course.models.CourseDTO;
 import com.app.course.services.CourseService;
 import com.app.exceptions.EntityNotFoundException;
 
@@ -36,13 +36,13 @@ public class CourseController {
     public CourseController() { }
 
     @PostMapping
-    public ResponseEntity<CourseProxy> createCourse(
-        @RequestBody final CreateCoursePayload coursePayload,
+    public ResponseEntity<CourseDTO> createCourse(
+        @RequestBody final CreateCourseDTO createCourseDto,
         final HttpServletRequest request,
         final UriComponentsBuilder builder
     ) {
         try {
-            CourseEntity entity = this.courseService.createCourse(coursePayload);
+            Course entity = this.courseService.createCourse(createCourseDto);
             UriComponents uriComponents = builder.path(
             request.getRequestURI()
             + "/"
@@ -55,26 +55,26 @@ public class CourseController {
     }
 
     @GetMapping
-    public ResponseEntity<ArrayProxy<CourseProxy>> getCourses() {
-        List<CourseEntity> entities = this.courseService.getCourses();
+    public ResponseEntity<ArrayProxy<CourseDTO>> getCourses() {
+        List<Course> entities = this.courseService.getCourses();
         return ResponseEntity.ok(
-            new ArrayProxy<CourseProxy>(
+            new ArrayProxy<CourseDTO>(
                 entities.size(),
                 entities
                     .stream()
-                    .map(entity -> entity.toProxy())
+                    .map(entity -> entity.toDTO())
                     .collect(Collectors.toList())
             )
         );
     }
     
     @GetMapping("/{id}")
-    public ResponseEntity<CourseProxy> getCourse(
+    public ResponseEntity<CourseDTO> getCourse(
         @PathVariable final String id
     ) {
         try {
-            CourseEntity entity = this.courseService.getCourse(id);
-            return ResponseEntity.ok(entity.toProxy());
+            Course entity = this.courseService.getCourse(id);
+            return ResponseEntity.ok(entity.toDTO());
         } catch(EntityNotFoundException exception) {
             return ResponseEntity.notFound().build();
         }
@@ -95,10 +95,10 @@ public class CourseController {
     @PutMapping("/{id}")
     public ResponseEntity<Void> updateCourse(
         @PathVariable final String id,
-        @RequestBody final UpdateCoursePayload coursePayload
+        @RequestBody final UpdateCourseDTO updateCourseDto
     ) {
         try {
-            this.courseService.updateCourse(id, coursePayload);
+            this.courseService.updateCourse(id, updateCourseDto);
             return ResponseEntity.ok().build();
         } catch (EntityNotFoundException exception) {
             return ResponseEntity.notFound().build();

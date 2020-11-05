@@ -10,8 +10,8 @@ import javax.annotation.PostConstruct;
 
 public abstract class BaseRepository<
     TEntity extends BaseEntity,
-    TCreatePayload extends ToEntity<TEntity>,
-    TUpdatePayload extends ModifyEntity<TEntity>
+    TCreateDTO extends ToEntity<TEntity>,
+    TUpdateDTO extends ModifyEntity<TEntity>
 > {
 
     private List<TEntity> entities;
@@ -23,8 +23,8 @@ public abstract class BaseRepository<
         entities = new ArrayList<TEntity>();
     }
 
-    public TEntity save(TCreatePayload createPayload) {
-        TEntity entity = createPayload.toEntity();
+    public TEntity save(TCreateDTO createDto) {
+        TEntity entity = createDto.toEntity();
         entity.setId(UUID.randomUUID().toString());
         entities.add(entity);
         return entity;
@@ -59,8 +59,8 @@ public abstract class BaseRepository<
             .removeIf(entity -> entity.id.equals(id));
     }
 
-    public void update(String id, TUpdatePayload updatePayload) {
-        updatePayload.modifyEntity(findOne(id));
+    public void update(String id, TUpdateDTO updateDto) {
+        updateDto.modifyEntity(findOne(id));
     }
 
     public boolean contains(String id) {
